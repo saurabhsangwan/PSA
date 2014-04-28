@@ -63,10 +63,11 @@ class NLTK:
         return test
     
 class wikim:
+    site = wiki.Wiki("http://commons.wikimedia.org/w/api.php")
     def Search(self,arr,b):
         for i in range(len(arr)):
 
-            site = wiki.Wiki("http://commons.wikimedia.org/w/api.php")
+            
             e = "http://commons.wikimedia.org/w/api.php?action=query&list=allimages&aiprop=url%7Cmime&format=json&redirects&aifrom="+arr[i][0] + "&ailimit=" + str(b[i])
             req = urllib2.Request(e)
             f = urllib2.urlopen(req)
