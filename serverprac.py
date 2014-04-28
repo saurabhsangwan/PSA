@@ -1,9 +1,31 @@
 import sys
 import BaseHTTPServer
 from SimpleHTTPServer import SimpleHTTPRequestHandler
+import finalimagesuggestion as IS
+class MyHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        print "GET"
+        #input = self.rfile.readline()
+        n = IS.NLTK()
+        resp = n.entities(IS.a)
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        self.wfile.write(resp)
+        
+    def do_POST(self):
+        print "POST"
+        length = int(self.headers.getheader('content-length'))
+        input = self.rfile.read(length)
+        n = IS.NLTK()
+        resp = n.entities(input)
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        self.wfile.write(resp)
+     
 
-
-HandlerClass = SimpleHTTPRequestHandler
+HandlerClass = MyHandler
 ServerClass  = BaseHTTPServer.HTTPServer
 Protocol     = "HTTP/1.0"
 
