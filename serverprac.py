@@ -12,7 +12,14 @@ class MyHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
-        self.wfile.write(resp)
+        self.wfile.write(n)
+    def do_GET(self):
+        input = self.headers.getheader('keyword')
+        a= IS.Searchkeyw(input)
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        self.wfile.write(a)
      
 
 HandlerClass = MyHandler
